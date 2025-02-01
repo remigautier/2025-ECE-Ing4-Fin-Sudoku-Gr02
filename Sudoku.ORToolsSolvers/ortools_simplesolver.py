@@ -1,6 +1,6 @@
 import numpy as np
 from ortools.sat.python import cp_model
-import time
+from timeit import default_timer
 
 def solve_sudoku(grid):
     model = cp_model.CpModel()
@@ -58,17 +58,12 @@ if 'instance' not in locals():
         [0, 4, 0, 9, 7, 0, 0, 0, 0]
     ], dtype=int)
 
-try:
-    start = time.perf_counter()
-    # Exécuter la résolution du Sudoku avec OR-Tools
-    if solve_sudoku(instance):
-        result = instance  # `result` sera utilisé pour récupérer la grille résolue depuis C#
-        # print(result)
-    else:
-        print("Aucune solution trouvée.")
-    execution = time.perf_counter() - start
-    print("Le temps de résolution est de : ", execution * 1000, " ms")
-except Exception as e:
-    print(f"Une erreur est survenue : {e}")
-
-
+start = default_timer()
+# Exécuter la résolution du Sudoku avec OR-Tools
+if solve_sudoku(instance):
+    result = instance  # `result` sera utilisé pour récupérer la grille résolue depuis C#
+    # print(result)
+else:
+    print("Aucune solution trouvée.")
+execution = default_timer() - start
+print("Le temps de résolution est de : ", execution * 1000, " ms")

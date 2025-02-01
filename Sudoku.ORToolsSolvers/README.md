@@ -89,8 +89,6 @@ Pour pousser plus loin l'exploration, voici des idées d'extensions basées sur 
 - **Optimisation multi-objectifs** :
   - Ajoutez des objectifs secondaires comme la minimisation du nombre de valeurs pré-remplies nécessaires pour résoudre la grille, ou maximisez la symétrie de la solution.
 
-- **Cas spécifiques** :
-  - Intégrez des variantes de Sudoku, comme les grilles diagonales ou hexadécimales, en ajoutant des contraintes spécifiques.
 
 Ces pistes permettent d'explorer la puissance d'OR-Tools tout en élargissant les compétences en programmation par contraintes et en optimisation.
 L'idéal pour leur mise en oeuvre est l'utilisation d'une classe de base mutualisant le code réutilisé avec des classes héritées personnalisant certains aspects de l'exécution.
