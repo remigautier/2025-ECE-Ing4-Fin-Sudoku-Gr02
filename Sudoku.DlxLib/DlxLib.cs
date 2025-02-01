@@ -24,8 +24,12 @@ namespace Sudoku.DlxLib
 
         public SudokuGrid Solve(SudokuGrid s)
         {
+            // Réinitialiser les liens entre les nœuds
+            ResetLinks();
+
             // Créer la matrice de contraintes
             CreateMatrix(s);
+
             // Résoudre le Sudoku avec l'algorithme DLX
             if (Search(0))
             {
@@ -43,6 +47,16 @@ namespace Sudoku.DlxLib
                 return solvedGrid;
             }
             return s; // Retourner le grid inchangé si aucune solution n'a été trouvée
+        }
+
+        private void ResetLinks()
+        {
+            header = new DLXNode();
+            for (int i = 0; i < 324; i++)
+            {
+                columns[i] = new DLXNode();
+            }
+            solution.Clear();
         }
 
         private void CreateMatrix(SudokuGrid s)
@@ -170,11 +184,11 @@ namespace Sudoku.DlxLib
                 }
                 col = col.Right;
             }
-            return selected;
+            return selected; 
         }
 
         private void Cover(DLXNode col)
-        {
+        { 
             col.Right.Left = col.Left;
             col.Left.Right = col.Right;
 
