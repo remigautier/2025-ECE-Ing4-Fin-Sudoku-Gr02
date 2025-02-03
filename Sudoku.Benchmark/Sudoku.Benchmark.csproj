@@ -15,11 +15,14 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sudoku.ColorGraphSolvers\Sudoku.ColorGraphSolvers.csproj" />
     <ProjectReference Include="..\Sudoku.ORToolsSolvers2\Sudoku.ORToolsSolvers2.csproj" />
     <ProjectReference Include="..\Sudoku.ORToolsSolvers\Sudoku.ORToolsSolvers.csproj" />
     <ProjectReference Include="..\Sudoku.RecuitSimule.Solvers\Sudoku.RecuitSimule.Solvers.csproj" />
     <ProjectReference Include="..\Sudoku.Shared\Sudoku.Shared.csproj" />
     <ProjectReference Include="..\Sudoku.Backtracking\Sudoku.Backtracking.csproj" />
+    <ProjectReference Include="..\Sudoku.HumainHabituel\Sudoku.HumainHabituel.csproj" />
+    <ProjectReference Include="..\sudoku.Z3solver\sudoku.Z3solver.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

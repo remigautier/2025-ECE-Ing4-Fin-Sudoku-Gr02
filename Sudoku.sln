@@ -13,7 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.ORToolsSolvers", "Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.RecuitSimule.Solvers", "Sudoku.RecuitSimule.Solvers\Sudoku.RecuitSimule.Solvers.csproj", "{45BC3E53-0635-4026-986B-5283C27F9A01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.HumainHabituel", "Sudoku.HumainHabituel\Sudoku.HumainHabituel.csproj", "{F8B743C7-9C07-4758-8F1E-8D7F14ABDCA6}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.ORToolsSolvers2", "Sudoku.ORToolsSolvers2\Sudoku.ORToolsSolvers2.csproj", "{3188DE86-DB0D-4CBA-BF1A-2F66C787C14D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sudoku.Z3solver", "sudoku.Z3solver\sudoku.Z3solver.csproj", "{12043785-1925-4598-9946-37AD8AB16C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.ColorGraphSolvers", "Sudoku.ColorGraphSolvers\Sudoku.ColorGraphSolvers.csproj", "{FE2BB9DB-B13C-41EC-A8B2-5AF738F7441D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +47,22 @@ Global
 		{45BC3E53-0635-4026-986B-5283C27F9A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45BC3E53-0635-4026-986B-5283C27F9A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45BC3E53-0635-4026-986B-5283C27F9A01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B743C7-9C07-4758-8F1E-8D7F14ABDCA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B743C7-9C07-4758-8F1E-8D7F14ABDCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B743C7-9C07-4758-8F1E-8D7F14ABDCA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B743C7-9C07-4758-8F1E-8D7F14ABDCA6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3188DE86-DB0D-4CBA-BF1A-2F66C787C14D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3188DE86-DB0D-4CBA-BF1A-2F66C787C14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3188DE86-DB0D-4CBA-BF1A-2F66C787C14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3188DE86-DB0D-4CBA-BF1A-2F66C787C14D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12043785-1925-4598-9946-37AD8AB16C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12043785-1925-4598-9946-37AD8AB16C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12043785-1925-4598-9946-37AD8AB16C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12043785-1925-4598-9946-37AD8AB16C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE2BB9DB-B13C-41EC-A8B2-5AF738F7441D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE2BB9DB-B13C-41EC-A8B2-5AF738F7441D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE2BB9DB-B13C-41EC-A8B2-5AF738F7441D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE2BB9DB-B13C-41EC-A8B2-5AF738F7441D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
