@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSPSolverAIMA\Sudoku.CSPAimaSolver.csproj" />
     <ProjectReference Include="..\Sudoku.ColorGraphSolvers\Sudoku.ColorGraphSolvers.csproj" />
     <ProjectReference Include="..\Sudoku.ORToolsSolvers2\Sudoku.ORToolsSolvers2.csproj" />
     <ProjectReference Include="..\Sudoku.ColorGraph\Sudoku.ColorGraph.csproj" />
