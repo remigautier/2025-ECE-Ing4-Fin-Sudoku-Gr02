@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Z3" Version="4.12.2" /> <!-- Ajout de la référence à Z3 -->
+    <PackageReference Include="Microsoft.Z3" Version="4.12.0" /> <!-- Ajout de la référence à Z3 -->
   </ItemGroup>
 
   <ItemGroup>
