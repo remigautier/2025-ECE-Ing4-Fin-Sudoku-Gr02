@@ -1,5 +1,6 @@
-﻿using Sudoku.Shared;
+﻿using System;
 using Microsoft.Z3;
+using Sudoku.Shared;
 
 namespace Sudoku.Z3Solvers
 {
@@ -7,119 +8,76 @@ namespace Sudoku.Z3Solvers
     {
         public SudokuGrid Solve(SudokuGrid s)
         {
-            // Créer un contexte Z3
-            using (var context = new Context())
+            using (Context ctx = new Context())
             {
-                // Créer un tableau de variables Z3 pour chaque case du Sudoku (9x9)
-                IntExpr[,] grid = new IntExpr[9, 9];
-                for (int row = 0; row < 9; row++)
+                Solver solver = ctx.MkSolver();
+                IntExpr[,] cells = new IntExpr[9, 9];
+
+                // Définition des variables pour chaque case de la grille
+                for (int i = 0; i < 9; i++)
                 {
-                    for (int col = 0; col < 9; col++)
+                    for (int j = 0; j < 9; j++)
                     {
-                        grid[row, col] = context.MkIntConst($"cell_{row}_{col}");
+                        cells[i, j] = ctx.MkIntConst($"x_{i}_{j}");
+                        solver.Add(ctx.MkAnd(ctx.MkLe(ctx.MkInt(1), cells[i, j]), ctx.MkLe(cells[i, j], ctx.MkInt(9))));
                     }
                 }
 
-                // Contraintes : chaque case doit avoir une valeur entre 1 et 9
-                BoolExpr constraints = context.MkTrue();
-                for (int row = 0; row < 9; row++)
+                // Ajout des contraintes de la grille initiale
+                for (int i = 0; i < 9; i++)
                 {
-                    for (int col = 0; col < 9; col++)
+                    for (int j = 0; j < 9; j++)
                     {
-                        constraints = context.MkAnd(constraints, context.MkAnd(
-                            context.MkGe(grid[row, col], context.MkInt(1)),
-                            context.MkLe(grid[row, col], context.MkInt(9))
-                        ));
-                    }
-                }
-
-                // Contraintes de ligne : toutes les valeurs de chaque ligne doivent être uniques
-                for (int row = 0; row < 9; row++)
-                {
-                    for (int col1 = 0; col1 < 9; col1++)
-                    {
-                        for (int col2 = col1 + 1; col2 < 9; col2++)
+                        if (s.Cells[i,j] != 0) // Si une valeur est donnée, on la fixe
                         {
-                            constraints = context.MkAnd(constraints,
-                                context.MkNot(context.MkEq(grid[row, col1], grid[row, col2]))
-                            );
+                            solver.Add(ctx.MkEq(cells[i, j], ctx.MkInt(s.Cells[i,j])));
                         }
                     }
                 }
 
-                // Contraintes de colonne : toutes les valeurs de chaque colonne doivent être uniques
-                for (int col = 0; col < 9; col++)
+                // Contraintes de ligne : chaque ligne doit contenir des valeurs uniques de 1 à 9
+                for (int i = 0; i < 9; i++)
                 {
-                    for (int row1 = 0; row1 < 9; row1++)
-                    {
-                        for (int row2 = row1 + 1; row2 < 9; row2++)
-                        {
-                            constraints = context.MkAnd(constraints,
-                                context.MkNot(context.MkEq(grid[row1, col], grid[row2, col]))
-                            );
-                        }
-                    }
+                    solver.Add(ctx.MkDistinct(cells[i, 0], cells[i, 1], cells[i, 2], cells[i, 3], cells[i, 4], cells[i, 5], cells[i, 6], cells[i, 7], cells[i, 8]));
                 }
 
-                // Contraintes de boîte 3x3 : toutes les valeurs dans chaque boîte doivent être uniques
+                // Contraintes de colonne : chaque colonne doit contenir des valeurs uniques de 1 à 9
+                for (int j = 0; j < 9; j++)
+                {
+                    solver.Add(ctx.MkDistinct(cells[0, j], cells[1, j], cells[2, j], cells[3, j], cells[4, j], cells[5, j], cells[6, j], cells[7, j], cells[8, j]));
+                }
+
+                // Contraintes de sous-grilles 3x3
                 for (int boxRow = 0; boxRow < 3; boxRow++)
                 {
                     for (int boxCol = 0; boxCol < 3; boxCol++)
                     {
-                        for (int row1 = 0; row1 < 3; row1++)
-                        {
-                            for (int col1 = 0; col1 < 3; col1++)
-                            {
-                                for (int row2 = row1; row2 < 3; row2++)
-                                {
-                                    for (int col2 = col1 + 1; col2 < 3; col2++)
-                                    {
-                                        constraints = context.MkAnd(constraints,
-                                            context.MkNot(context.MkEq(grid[boxRow * 3 + row1, boxCol * 3 + col1], 
-                                                                grid[boxRow * 3 + row2, boxCol * 3 + col2]))
-                                        );
-                                    }
-                                }
-                            }
-                        }
+                        solver.Add(ctx.MkDistinct(
+                            cells[3 * boxRow, 3 * boxCol], cells[3 * boxRow, 3 * boxCol + 1], cells[3 * boxRow, 3 * boxCol + 2],
+                            cells[3 * boxRow + 1, 3 * boxCol], cells[3 * boxRow + 1, 3 * boxCol + 1], cells[3 * boxRow + 1, 3 * boxCol + 2],
+                            cells[3 * boxRow + 2, 3 * boxCol], cells[3 * boxRow + 2, 3 * boxCol + 1], cells[3 * boxRow + 2, 3 * boxCol + 2]
+                        ));
                     }
                 }
 
-                // Remplir les valeurs existantes dans le Sudoku
-                for (int row = 0; row < 9; row++)
+                // Résolution du Sudoku
+                if (solver.Check() == Status.SATISFIABLE)
                 {
-                    for (int col = 0; col < 9; col++)
-                    {
-                        if (s.Cells[row, col] != 0) // Si la case n'est pas vide, ajouter une contrainte
-                        {
-                            constraints = context.MkAnd(constraints, context.MkEq(grid[row, col], context.MkInt(s.Cells[row, col])));
-                        }
-                    }
-                }
-
-                // Résoudre le Sudoku
-                Solver solver = context.MkSolver();
-                solver.Add(constraints);
-                Status status = solver.Check();
-
-                if (status == Status.SATISFIABLE)
-                {
-                    // Si une solution existe, extraire les valeurs et remplir la grille
                     Model model = solver.Model;
-                    SudokuGrid solvedSudoku = new SudokuGrid();
-                    for (int row = 0; row < 9; row++)
+                    SudokuGrid solvedGrid = new SudokuGrid();
+                    
+                    for (int i = 0; i < 9; i++)
                     {
-                        for (int col = 0; col < 9; col++)
+                        for (int j = 0; j < 9; j++)
                         {
-                            solvedSudoku.Cells[row, col] = int.Parse(model.Evaluate(grid[row, col]).ToString());
+                            solvedGrid.Cells[i,j] = ((IntNum)model.Evaluate(cells[i, j])).Int;
                         }
                     }
-                    return solvedSudoku;
+                    return solvedGrid;
                 }
                 else
                 {
-                    // Aucune solution trouvée
-                    return null;
+                    throw new Exception("Le Sudoku n'a pas de solution.");
                 }
             }
         }

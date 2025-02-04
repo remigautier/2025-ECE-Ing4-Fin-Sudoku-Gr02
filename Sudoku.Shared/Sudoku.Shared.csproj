@@ -3,6 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Z3" Version="4.12.2" />
     <PackageReference Include="Python.Deployment" Version="2.0.5" />
     <PackageReference Include="pythonnet" Version="3.1.0-preview2024-09-06" />
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
