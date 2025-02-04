@@ -16,9 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../Sudoku.DlxLib/Sudoku.DlxLib.csproj" />
+    <ProjectReference Include="../Sudoku.Z3Solvers/Sudoku.Z3Solvers.csproj" />
     <ProjectReference Include="..\Sudoku.ORToolsSolvers\Sudoku.ORToolsSolvers.csproj" />
+    <ProjectReference Include="..\Sudoku.RecuitSimule.Solvers\Sudoku.RecuitSimule.Solvers.csproj" />
     <ProjectReference Include="..\Sudoku.Shared\Sudoku.Shared.csproj" />
     <ProjectReference Include="..\Sudoku.Backtracking\Sudoku.Backtracking.csproj" />
+    <ProjectReference Include="..\Sudoku.HumainHabituel\Sudoku.HumainHabituel.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
